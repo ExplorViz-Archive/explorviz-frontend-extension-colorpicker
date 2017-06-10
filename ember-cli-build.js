@@ -7,9 +7,5 @@ module.exports = function(defaults) {
     // Add options here
   });
 
-  app.import('vendor/bootstrap-color-picker/bootstrap-colorpicker.min.js');
-  app.import('vendor/bootstrap-color-picker/bootstrap-colorpicker.min.css.map');
-  app.import('vendor/bootstrap-color-picker/bootstrap-colorpicker.min.css');
-
   return app.toTree();
 };
