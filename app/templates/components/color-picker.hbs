@@ -1,39 +1,80 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="text-center">Systems</div>
       <div id="cp1" class="input-group colorpicker-component">
         <input type="text" value={{configuration.landscapeColors.system}} class="form-control" />
         <span class="input-group-addon"><i></i></span>
       </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="text-center">Nodegroups</div>
       <div id="cp2" class="input-group colorpicker-component">
         <input type="text" value={{configuration.landscapeColors.nodegroup}} class="form-control" />
         <span class="input-group-addon"><i></i></span>
       </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="text-center">Nodes</div>
       <div id="cp3" class="input-group colorpicker-component">
         <input type="text" value={{configuration.landscapeColors.node}} class="form-control" />
         <span class="input-group-addon"><i></i></span>
       </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="text-center">Applications</div>
       <div id="cp4" class="input-group colorpicker-component">
-        <input type="text" value={{configuration.landscapeColors.application1}} class="form-control" />
+        <input type="text" value={{configuration.landscapeColors.application}} class="form-control" />
         <span class="input-group-addon"><i></i></span>
       </div>
     </div>
-    <div class="col-md-2">
+  </div>
+
+  <br/>
+
+  <div class="row">
+    <div class="col-md-3">
       <div class="text-center">Communications</div>
       <div id="cp5" class="input-group colorpicker-component">
         <input type="text" value={{configuration.landscapeColors.communication}} class="form-control" />
         <span class="input-group-addon"><i></i></span>
       </div>
     </div>
+    <div class="col-md-3">
+      <div class="text-center">System Text</div>
+      <div id="cp6" class="input-group colorpicker-component">
+        <input type="text" value={{configuration.landscapeColors.textsystem}} class="form-control" />
+        <span class="input-group-addon"><i></i></span>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="text-center">Node Text</div>
+      <div id="cp7" class="input-group colorpicker-component">
+        <input type="text" value={{configuration.landscapeColors.textnode}} class="form-control" />
+        <span class="input-group-addon"><i></i></span>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="text-center">Application Text</div>
+      <div id="cp8" class="input-group colorpicker-component">
+        <input type="text" value={{configuration.landscapeColors.textapp}} class="form-control" />
+        <span class="input-group-addon"><i></i></span>
+      </div>
+    </div>
   </div>
+
+  <br/>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="well well-sm text-center">Reset all colors to default</div>
+      <div id="resetDiv" class="text-center">
+        <button id="resetcolors" class="btn btn-primary" {{action "resetColors"}}>
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+
+
 </div>
