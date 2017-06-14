@@ -20,7 +20,6 @@ export default Ember.Component.extend({
     this.$('#cp3').colorpicker().off('changeColor');
     this.$('#cp4').colorpicker().off('changeColor');
     this.$('#cp5').colorpicker().off('changeColor');
-    this.$('#cp6').colorpicker().off('changeColor');
   },
 
 
@@ -33,7 +32,6 @@ export default Ember.Component.extend({
     this.$('#cp3').colorpicker();
     this.$('#cp4').colorpicker();
     this.$('#cp5').colorpicker();
-    this.$('#cp6').colorpicker();
 
     // Setup Handlers
     this.$('#cp1').colorpicker().on('changeColor', function(event){
@@ -49,16 +47,10 @@ export default Ember.Component.extend({
     });
 
     this.$('#cp4').colorpicker().on('changeColor', function(event){
-      self.set('configuration.landscapeColors.application1', event.value);
-      self.set('configuration.landscapeColors.appTextureChanged', true);
+      self.set('configuration.landscapeColors.application', event.value);
     });
 
     this.$('#cp5').colorpicker().on('changeColor', function(event){
-      self.set('configuration.landscapeColors.application2', event.value);
-      self.set('configuration.landscapeColors.appTextureChanged', true);
-    });
-
-    this.$('#cp6').colorpicker().on('changeColor', function(event){
       self.set('configuration.landscapeColors.communication', event.value);
     });
 
