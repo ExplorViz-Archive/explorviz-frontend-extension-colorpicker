@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export function initialize(applicationInstance) {
   const service = applicationInstance.lookup('service:configuration');
-  service.get('addonImports').addObject('color-picker');
+  service.get('pluginSettings').addObject('color-picker');
 }
 
 export default {
