@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = {
-  name: 'explorviz-frontend-plugin-colorpicker',
+  name: 'explorviz-frontend-extension-colorpicker',
 
   included: function(app) {
     this._super.included.apply(this, arguments);
