@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service } from '@ember/service';
 
-export default Ember.Component.extend({
+export default Component.extend({
 
-  configuration: Ember.inject.service("configuration"),
+  configuration: service("configuration"),
 
   template: '<div class="colorpicker dropdown-menu">' +
     '<div class="colorpicker-saturation"><i><b></b></i></div>' +
