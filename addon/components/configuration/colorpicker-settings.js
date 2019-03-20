@@ -2,26 +2,28 @@ import Component from '@ember/component';
 import layout from '../../templates/components/configuration/colorpicker-settings';
 import { inject as service } from '@ember/service';
 
+
 export default Component.extend({
   layout,
   configuration: service("configuration"),
 
-  template: '<div class="colorpicker dropdown-menu">' +
-    '<div class="colorpicker-saturation"><i><b></b></i></div>' +
-    '<div class="colorpicker-hue"><i></i></div>' +
-    '<div class="colorpicker-color"><div /></div>' +
-    '<div class="colorpicker-selectors"></div>' + '</div>',
-
   actions: {
     resetColors() {
-      this.$('#cp1').colorpicker('setValue', "rgb(199,199,199)");
-      this.$('#cp2').colorpicker('setValue', "rgb(1,155,32)");
-      this.$('#cp3').colorpicker('setValue', "rgb(0,189,56)");
-      this.$('#cp4').colorpicker('setValue', "rgb(81,34,183)");
-      this.$('#cp5').colorpicker('setValue', "rgb(244,145,0)");
-      this.$('#cp6').colorpicker('setValue', "rgb(0,0,0)");
-      this.$('#cp7').colorpicker('setValue', "rgb(255,255,255)");
-      this.$('#cp8').colorpicker('setValue', "rgb(255,255,255)");
+
+      console.log("color: " + this.get('configuration.landscapeColors.system'));
+      console.log("default color: " + this.get('configuration.landscapeColorsDefault.system'));
+      this.$('#cp-landscape-system').colorpicker('setValue', "rgb(199, 199, 199)");
+      // this.$('#cp-landscape-system').colorpicker('setValue', this.get('configuration.landscapeColorsDefault.system'));
+      // this.$('#cp-landscape-nodegroup').colorpicker('setValue', this.get('configuration.landscapeColorsDefault.nodegroup'));
+      // this.$('#cp-landscape-node').colorpicker('setValue', this.get('configuration.landscapeColorsDefault.node'));
+      // this.$('#cp-landscape-application').colorpicker('setValue', this.get('configuration.landscapeColorsDefault.application'));
+      // this.$('#cp-landscape-communication').colorpicker('setValue', this.get('configuration.landscapeColorsDefault.communication'));
+      // this.$('#cp-landscape-text-system').colorpicker('setValue', this.get('configuration.landscapeColorsDefault.textsystem'));
+      // this.$('#cp-landscape-text-node').colorpicker('setValue', this.get('configuration.landscapeColorsDefault.textnode'));
+      // this.$('#cp-landscape-text-app').colorpicker('setValue', this.get('configuration.landscapeColorsDefault.textapp'));
+
+      // resets the colors to default values stored in the configuration service
+      this.get('configuration').resetColors();
     }
   },
 
@@ -31,73 +33,126 @@ export default Component.extend({
     this.initColorpicker();
   },
 
-
   // @Override
   willDestroyElement() {
     this._super(...arguments);
 
-    this.$('#cp1').colorpicker().off('changeColor');
-    this.$('#cp2').colorpicker().off('changeColor');
-    this.$('#cp3').colorpicker().off('changeColor');
-    this.$('#cp4').colorpicker().off('changeColor');
-    this.$('#cp5').colorpicker().off('changeColor');
-    this.$('#cp6').colorpicker().off('changeColor');
-    this.$('#cp7').colorpicker().off('changeColor');
-    this.$('#cp8').colorpicker().off('changeColor');
+    this.$('#cp-landscape-system').colorpicker().off('change');
+    this.$('#cp-landscape-nodegroup').colorpicker().off('change');
+    this.$('#cp-landscape-node').colorpicker().off('change');
+    this.$('#cp-landscape-application').colorpicker().off('change');
+    this.$('#cp-landscape-communication').colorpicker().off('change');
+    this.$('#cp-landscape-tesxt-system').colorpicker().off('change');
+    this.$('#cp-landscape-text-node').colorpicker().off('change');
+    this.$('#cp-landscape-text-app').colorpicker().off('change');
   },
 
-
+  // initializes the colorpicker elements and related handlers/listeners
   initColorpicker() {
-
     const self = this;
+    this.initColorPickerElements(self);
+    this.initHandlers(self);
+  },
 
-    this.$('#cp1').colorpicker({ "template": self.get('template') });
-    this.$('#cp2').colorpicker({ "template": self.get('template') });
-    this.$('#cp3').colorpicker({ "template": self.get('template') });
-    this.$('#cp4').colorpicker({ "template": self.get('template') });
-    this.$('#cp5').colorpicker({ "template": self.get('template') });
-    this.$('#cp6').colorpicker({ "template": self.get('template') });
-    this.$('#cp7').colorpicker({ "template": self.get('template') });
-    this.$('#cp8').colorpicker({ "template": self.get('template') });
+  // configures the colorpicker elements and defines format, color, and fallback color
+  initColorPickerElements(self) {
 
-    // Setup Handlers
-    this.$('#cp1').colorpicker().on('changeColor', function (event) {
-      //TODO - too much recursion
-      self.$('#cp1').colorpicker('setValue', event.value);
+    this.$('#cp-landscape-system').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: self.get('configuration.landscapeColorsDefault.system'),
+        color: self.get('configuration.landscapeColors.system')
+      }
+    );
+    this.$('#cp-landscape-nodegroup').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.landscapeColorsDefault.nodegroup'),
+        color: self.get('configuration.landscapeColors.nodegroup')
+      }
+    );
+    this.$('#cp-landscape-node').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.landscapeColorsDefault.node'),
+        color: self.get('configuration.landscapeColors.node')
+      }
+    );
+    this.$('#cp-landscape-application').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.landscapeColorsDefault.application'),
+        color: self.get('configuration.landscapeColors.application')
+      }
+    );
+    this.$('#cp-landscape-communication').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.landscapeColorsDefault.communication'),
+        color: self.get('configuration.landscapeColors.communication')
+      }
+    );
+    this.$('#cp-landscape-text-system').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.landscapeColorsDefault.textsystem'),
+        color: self.get('configuration.landscapeColors.textsystem')
+      }
+    );
+    this.$('#cp-landscape-text-node').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.landscapeColorsDefault.textnode'),
+        color: self.get('configuration.landscapeColors.textnode')
+      }
+    );
+    this.$('#cp-landscape-text-app').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.landscapeColorsDefault.textapp'),
+        color: self.get('configuration.landscapeColors.textapp')
+      }
+    );
+  },
+
+  // setups the handlers / listeners for the colorpickers
+  // 
+  initHandlers(self) {
+
+    this.$('#cp-landscape-system').colorpicker().on('change', function (event) {
       self.set('configuration.landscapeColors.system', event.value);
     });
 
-    this.$('#cp2').colorpicker().on('changeColor', function (event) {
+    this.$('#cp-landscape-nodegroup').colorpicker().on('change', function (event) {
       self.set('configuration.landscapeColors.nodegroup', event.value);
     });
 
-    this.$('#cp3').colorpicker().on('changeColor', function (event) {
+    this.$('#cp-landscape-node').colorpicker().on('change', function (event) {
       self.set('configuration.landscapeColors.node', event.value);
     });
 
-    this.$('#cp4').colorpicker().on('changeColor', function (event) {
+    this.$('#cp-landscape-application').colorpicker().on('change', function (event) {
       self.set('configuration.landscapeColors.application', event.value);
     });
 
-    this.$('#cp5').colorpicker().on('changeColor', function (event) {
+    this.$('#cp-landscape-communication').colorpicker().on('change', function (event) {
       self.set('configuration.landscapeColors.communication', event.value);
     });
 
-    this.$('#cp6').colorpicker().on('changeColor', function (event) {
+    this.$('#cp-landscape-text-system').colorpicker().on('change', function (event) {
       self.set('configuration.landscapeColors.textchanged', true);
       self.set('configuration.landscapeColors.textsystem', event.value);
     });
 
-    this.$('#cp7').colorpicker().on('changeColor', function (event) {
+    this.$('#cp-landscape-text-node').colorpicker().on('change', function (event) {
       self.set('configuration.landscapeColors.textchanged', true);
       self.set('configuration.landscapeColors.textnode', event.value);
     });
 
-    this.$('#cp8').colorpicker().on('changeColor', function (event) {
+    this.$('#cp-landscape-text-app').colorpicker().on('change', function (event) {
       self.set('configuration.landscapeColors.textchanged', true);
       self.set('configuration.landscapeColors.textapp', event.value);
     });
-
   }
 
 });
