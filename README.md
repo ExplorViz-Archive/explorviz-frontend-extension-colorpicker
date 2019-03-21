@@ -1,5 +1,5 @@
 # explorviz-frontend-extension-colorpicker
 
-This extension provides a [color-picker](https://itsjavi.com/bootstrap-colorpicker) for ExplorViz's landscape-view. 
+This extension provides severals color scheme presets (also a visual impairment scheme) and multiple [color-picker](https://itsjavi.com/bootstrap-colorpicker) for ExplorViz's visualizations (landscape-persepective and application-perspective). 
 
-Install via `npm install https://github.com/ExplorViz/explorviz-frontend-extension-colorpicker.git --save-dev` or `ember install https://github.com/ExplorViz/explorviz-frontend-extension-colorpicker.git` and uninstall `npm uninstall explorviz-frontend-extension-colorpicker --save-dev`.
+Install the [frontend}(https://github.com/ExplorViz/explorviz-frontend) and afterwards the extension via `npm install https://github.com/ExplorViz/explorviz-frontend-extension-colorpicker.git`.
