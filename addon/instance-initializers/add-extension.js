@@ -15,9 +15,7 @@ export function initialize(appInstance) {
   // adding the extension as a tab in the configuration ui
   const service = appInstance.lookup('service:configuration');
   service.get('configurationExtensions').addObject(extensionDescription);
-
   Router.configurationRouteExtensions.push('colorpicker');
-  console.log('initializer add-extension.js');
 }
 
 export default {
