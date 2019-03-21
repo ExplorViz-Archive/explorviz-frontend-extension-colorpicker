@@ -20,7 +20,6 @@ export default Component.extend({
       if (value === "default") {
         this.get('configuration').resetColors();
       }
-
       else if (value === "impaired") {
         this.get('configuration').applyVisuallyImpairedColors();
       }
