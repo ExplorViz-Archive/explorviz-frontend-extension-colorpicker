@@ -1,0 +1,1 @@
+export { default } from 'explorviz-frontend-extension-colorpicker/components/configuration/colorpicker-settings';
