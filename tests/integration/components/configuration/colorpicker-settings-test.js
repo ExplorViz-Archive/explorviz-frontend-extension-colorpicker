@@ -2,9 +2,14 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import Service from '@ember/service';
 
 module('Integration | Component | configuration/colorpicker-settings', function(hooks) {
   setupRenderingTest(hooks);
+
+  hooks.beforeEach(function(assert) {
+    this.owner.register('service:configuration', locationStub);
+  });
 
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
