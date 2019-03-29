@@ -2,9 +2,7 @@
       "active": true,
       "imgSrc": "color-picker.svg",
       "requiredExtensions": [
-        "frontend_master",
-        "backend_master",
-        "backend-extension-vr_master"
+        "frontend_dev-1"
       ],
       "incompatibleExtensions": []
 }
