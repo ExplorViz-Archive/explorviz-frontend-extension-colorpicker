@@ -1,0 +1,8 @@
+{
+      "active": true,
+      "imgSrc": "color-picker.svg",
+      "requiredExtensions": [
+        "frontend_dev-1",
+      ],
+      "incompatibleExtensions": []
+}
