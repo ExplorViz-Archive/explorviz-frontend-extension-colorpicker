@@ -39,13 +39,13 @@ export default Component.extend({
       this.$('#cp-landscape-text-app').colorpicker('setValue', this.get('configuration.landscapeColors.textapp'));
 
       // update application colorpickers
-      this.$('#cp-application-foundation').colorpicker('setValue', this.get('configuration.applicationColorsDefault.foundation'));
-      this.$('#cp-application-componentOdd').colorpicker('setValue', this.get('configuration.applicationColorsDefault.componentOdd'));
-      this.$('#cp-application-componentEven').colorpicker('setValue', this.get('configuration.applicationColorsDefault.componentEven'));
-      this.$('#cp-application-clazz').colorpicker('setValue', this.get('configuration.applicationColorsDefault.clazz'));
-      this.$('#cp-application-highlightedEntity').colorpicker('setValue', this.get('configuration.applicationColorsDefault.highlightedEntity'));
-      this.$('#cp-application-communication').colorpicker('setValue', this.get('configuration.applicationColorsDefault.communication'));
-      this.$('#cp-application-communicationArrow').colorpicker('setValue', this.get('configuration.applicationColorsDefault.communicationArrow'));
+      this.$('#cp-application-foundation').colorpicker('setValue', this.get('configuration.applicationColors.foundation'));
+      this.$('#cp-application-componentOdd').colorpicker('setValue', this.get('configuration.applicationColors.componentOdd'));
+      this.$('#cp-application-componentEven').colorpicker('setValue', this.get('configuration.applicationColors.componentEven'));
+      this.$('#cp-application-clazz').colorpicker('setValue', this.get('configuration.applicationColors.clazz'));
+      this.$('#cp-application-highlightedEntity').colorpicker('setValue', this.get('configuration.applicationColors.highlightedEntity'));
+      this.$('#cp-application-communication').colorpicker('setValue', this.get('configuration.applicationColors.communication'));
+      this.$('#cp-application-communicationArrow').colorpicker('setValue', this.get('configuration.applicationColors.communicationArrow'));
     },
 
   },
