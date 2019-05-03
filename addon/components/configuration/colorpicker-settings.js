@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/configuration/colorpicker-settings';
 import { inject as service } from '@ember/service';
-
+import $ from 'jquery';
 
 /**
  * The Colorpicker component handles the colorpicker elements for the colors uses in the visualization
@@ -9,13 +9,12 @@ import { inject as service } from '@ember/service';
  * @extends Ember.Service
  */
 export default Component.extend({
+
   layout,
   configuration: service("configuration"),
 
-
   actions: {
-
-    // applies a selected color scheme to the colorpickers and reset the stored colors
+    // Applies a selected color scheme to the colorpickers and reset the stored colors
     applyColorScheme(value) {
       if (value === "default") {
         this.get('configuration').resetColors();
@@ -24,35 +23,10 @@ export default Component.extend({
         this.get('configuration').applyVisuallyImpairedColors();
       }
       else {
-        // passed color scheme was invalid
+        // Passed color scheme was invalid
         return;
       }
-
-      // update landscape colorpickers
-      this.$('#cp-landscape-system').colorpicker('setValue', this.get('configuration.landscapeColors.system'));
-      this.$('#cp-landscape-nodegroup').colorpicker('setValue', this.get('configuration.landscapeColors.nodegroup'));
-      this.$('#cp-landscape-node').colorpicker('setValue', this.get('configuration.landscapeColors.node'));
-      this.$('#cp-landscape-application').colorpicker('setValue', this.get('configuration.landscapeColors.application'));
-      this.$('#cp-landscape-communication').colorpicker('setValue', this.get('configuration.landscapeColors.communication'));
-      this.$('#cp-landscape-text-system').colorpicker('setValue', this.get('configuration.landscapeColors.textSystem'));
-      this.$('#cp-landscape-text-node').colorpicker('setValue', this.get('configuration.landscapeColors.textNode'));
-      this.$('#cp-landscape-text-app').colorpicker('setValue', this.get('configuration.landscapeColors.textApp'));
-      this.$('#cp-landscape-background').colorpicker('setValue', this.get('configuration.landscapeColors.brackgrounnd'));
-
-      // update application colorpickers
-      this.$('#cp-application-foundation').colorpicker('setValue', this.get('configuration.applicationColors.foundation'));
-      this.$('#cp-application-componentOdd').colorpicker('setValue', this.get('configuration.applicationColors.componentOdd'));
-      this.$('#cp-application-componentEven').colorpicker('setValue', this.get('configuration.applicationColors.componentEven'));
-      this.$('#cp-application-clazz').colorpicker('setValue', this.get('configuration.applicationColors.clazz'));
-      this.$('#cp-application-foundation-text').colorpicker('setValue', this.get('configuration.applicationColors.textFoundation'));
-      this.$('#cp-application-component-text').colorpicker('setValue', this.get('configuration.applicationColors.textComponent'));
-      this.$('#cp-application-clazz-text').colorpicker('setValue', this.get('configuration.applicationColors.textClazz'));
-      this.$('#cp-application-highlightedEntity').colorpicker('setValue', this.get('configuration.applicationColors.highlightedEntity'));
-      this.$('#cp-application-communication').colorpicker('setValue', this.get('configuration.applicationColors.communication'));
-      this.$('#cp-application-communicationArrow').colorpicker('setValue', this.get('configuration.applicationColors.communicationArrow'));
-      this.$('#cp-application-background').colorpicker('setValue', this.get('configuration.applicationColors.background'));
     },
-
   },
 
   // @Override
@@ -61,278 +35,74 @@ export default Component.extend({
     this.initColorpicker();
   },
 
-  // @Override
-  willDestroyElement() {
-    this._super(...arguments);
-
-    // landscape colorpickers
-    this.$('#cp-landscape-system').colorpicker().off('change');
-    this.$('#cp-landscape-nodegroup').colorpicker().off('change');
-    this.$('#cp-landscape-node').colorpicker().off('change');
-    this.$('#cp-landscape-application').colorpicker().off('change');
-    this.$('#cp-landscape-communication').colorpicker().off('change');
-    this.$('#cp-landscape-tesxt-system').colorpicker().off('change');
-    this.$('#cp-landscape-text-node').colorpicker().off('change');
-    this.$('#cp-landscape-text-app').colorpicker().off('change');
-    this.$('#cp-landscape-background').colorpicker().off('change');
-
-    // application colorpickers
-    this.$('#cp-application-foundation').colorpicker().off('change');
-    this.$('#cp-application-componentOdd').colorpicker().off('change');
-    this.$('#cp-application-componentEven').colorpicker().off('change');
-    this.$('#cp-application-clazz').colorpicker().off('change');
-    this.$('#cp-application-foundation-text').colorpicker().off('change');
-    this.$('#cp-application-component-text').colorpicker().off('change');
-    this.$('#cp-application-clazz-text').colorpicker().off('change');
-    this.$('#cp-application-highlightedEntity').colorpicker().off('change');
-    this.$('#cp-application-communication').colorpicker().off('change');
-    this.$('#cp-application-communicationArrow').colorpicker().off('change');
-    this.$('#cp-application-background').colorpicker().off('change');
-  },
-
-  // initializes the colorpicker elements and related handlers/listeners
+  // Initializes the colorpicker elements and related handlers/listeners
   initColorpicker() {
     const self = this;
     this.initColorPickerElements(self);
     this.initHandlers(self);
   },
 
-  // configures the colorpicker elements and defines format, color, and fallback color
+  // Configures the colorpicker elements and defines format, color, and fallback color
   initColorPickerElements(self) {
+    let landscapeColors = this.get('configuration.landscapeColors');
+    // Initialize landscape colorpickers
+    for (let property in landscapeColors) {
+      $(`#cp-landscape-${property}`).colorpicker(
+        {
+          format: "rgb",
+          fallbackColor: self.get('configuration.landscapeColorsDefault.' + property),
+          color: self.get('configuration.landscapeColors.' + property)
+        }
+      );
+    }
 
-    // landscape colorpickers
-    this.$('#cp-landscape-system').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: self.get('configuration.landscapeColorsDefault.system'),
-        color: self.get('configuration.landscapeColors.system')
-      }
-    );
-    this.$('#cp-landscape-nodegroup').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.landscapeColorsDefault.nodegroup'),
-        color: self.get('configuration.landscapeColors.nodegroup')
-      }
-    );
-    this.$('#cp-landscape-node').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.landscapeColorsDefault.node'),
-        color: self.get('configuration.landscapeColors.node')
-      }
-    );
-    this.$('#cp-landscape-application').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.landscapeColorsDefault.application'),
-        color: self.get('configuration.landscapeColors.application')
-      }
-    );
-    this.$('#cp-landscape-communication').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.landscapeColorsDefault.communication'),
-        color: self.get('configuration.landscapeColors.communication')
-      }
-    );
-    this.$('#cp-landscape-text-system').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.landscapeColorsDefault.textSystem'),
-        color: self.get('configuration.landscapeColors.textSystem')
-      }
-    );
-    this.$('#cp-landscape-text-node').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.landscapeColorsDefault.textNode'),
-        color: self.get('configuration.landscapeColors.textNode')
-      }
-    );
-    this.$('#cp-landscape-text-app').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.landscapeColorsDefault.textApp'),
-        color: self.get('configuration.landscapeColors.textApp')
-      }
-    );
-    this.$('#cp-landscape-background').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.landscapeColorsDefault.background'),
-        color: self.get('configuration.landscapeColors.background')
-      }
-    );
-
-    // application colorpickers
-    this.$('#cp-application-foundation').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.applicationColorsDefault.foundation'),
-        color: self.get('configuration.applicationColors.foundation')
-      }
-    );
-    this.$('#cp-application-componentOdd').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.applicationColorsDefault.componentOdd'),
-        color: self.get('configuration.applicationColors.componentOdd')
-      }
-    );
-    this.$('#cp-application-componentEven').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.applicationColorsDefault.componentEven'),
-        color: self.get('configuration.applicationColors.componentEven')
-      }
-    );
-    this.$('#cp-application-clazz').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.applicationColorsDefault.clazz'),
-        color: self.get('configuration.applicationColors.clazz')
-      }
-    );
-    this.$('#cp-application-foundation-text').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.applicationColorsDefault.textFoundation'),
-        color: self.get('configuration.applicationColors.textFoundation')
-      }
-    );
-    this.$('#cp-application-component-text').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.applicationColorsDefault.textComponent'),
-        color: self.get('configuration.applicationColors.textComponent')
-      }
-    );
-    this.$('#cp-application-clazz-text').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.applicationColorsDefault.textClazz'),
-        color: self.get('configuration.applicationColors.textClazz')
-      }
-    );
-    this.$('#cp-application-highlightedEntity').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.applicationColorsDefault.highlightedEntity'),
-        color: self.get('configuration.applicationColors.highlightedEntity')
-      }
-    );
-    this.$('#cp-application-communication').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.applicationColorsDefault.communication'),
-        color: self.get('configuration.applicationColors.communication')
-      }
-    );
-    this.$('#cp-application-communicationArrow').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.applicationColorsDefault.communicationArrow'),
-        color: self.get('configuration.applicationColors.communicationArrow')
-      }
-    );
-    this.$('#cp-application-background').colorpicker(
-      {
-        format: "rgb",
-        fallbackColor: this.get('configuration.applicationColorsDefault.background'),
-        color: self.get('configuration.applicationColors.background')
-      }
-    );
+    let applicationColors = this.get('configuration.applicationColors');
+    // Initialize application colorpickers
+    for (let property in applicationColors) {
+      $(`#cp-application-${property}`).colorpicker(
+        {
+          format: "rgb",
+          fallbackColor: self.get('configuration.applicationColorsDefault.' + property),
+          color: self.get('configuration.applicationColors.' + property)
+        }
+      );
+    }
   },
 
-  // setups the handlers / listeners for the colorpickers
-  // 
+  // Setups the handlers / listeners for the colorpickers
   initHandlers(self) {
+    // Landscape color handlers
+    let landscapeColors = this.get('configuration.landscapeColors');
+    for (let property in landscapeColors) {
+      $(`#cp-landscape-${property}`).colorpicker().on('change', function (event) {
+        self.set('configuration.landscapeColors.' + property, event.value);
+      });
+    }
 
-    // landscape colorpickers
-    this.$('#cp-landscape-system').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.system', event.value);
-    });
+    // Application color Handlers
+    let applicationColors = this.get('configuration.applicationColors');
+    for (let property in applicationColors) {
+      $(`#cp-application-${property}`).colorpicker().on('change', function (event) {
+        self.set('configuration.applicationColors.' + property, event.value);
+      });
+    }
+  },
 
-    this.$('#cp-landscape-nodegroup').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.nodegroup', event.value);
-    });
+  // @Override
+  willDestroyElement() {
+    this._super(...arguments);
 
-    this.$('#cp-landscape-node').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.node', event.value);
-    });
+    // Reset landscape color handlers
+    let landscapeColors = this.get('configuration.landscapeColors');
+    for (let property in landscapeColors) {
+      $(`#cp-landscape-${property}`).colorpicker().off('change');
+    }
 
-    this.$('#cp-landscape-application').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.application', event.value);
-    });
-
-    this.$('#cp-landscape-communication').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.communication', event.value);
-    });
-
-    this.$('#cp-landscape-text-system').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.textChanged', true);
-      self.set('configuration.landscapeColors.textSystem', event.value);
-    });
-
-    this.$('#cp-landscape-text-node').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.textChanged', true);
-      self.set('configuration.landscapeColors.textNode', event.value);
-    });
-
-    this.$('#cp-landscape-text-app').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.textChanged', true);
-      self.set('configuration.landscapeColors.textApp', event.value);
-    });
-
-    this.$('#cp-landscape-background').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.background', event.value);
-    });
-
-    // application colorpickers
-    this.$('#cp-application-foundation').colorpicker().on('change', function (event) {
-      self.set('configuration.applicationColors.foundation', event.value);
-    });
-
-    this.$('#cp-application-componentOdd').colorpicker().on('change', function (event) {
-      self.set('configuration.applicationColors.componentOdd', event.value);
-    });
-
-    this.$('#cp-application-componentEven').colorpicker().on('change', function (event) {
-      self.set('configuration.applicationColors.componentEven', event.value);
-    });
-
-    this.$('#cp-application-clazz').colorpicker().on('change', function (event) {
-      self.set('configuration.applicationColors.clazz', event.value);
-    });
-
-    this.$('#cp-application-foundation-text').colorpicker().on('change', function (event) {
-      self.set('configuration.applicationColors.textFoundation', event.value);
-    });
-
-    this.$('#cp-application-component-text').colorpicker().on('change', function (event) {
-      self.set('configuration.applicationColors.textComponent', event.value);
-    });
-
-    this.$('#cp-application-clazz-text').colorpicker().on('change', function (event) {
-      self.set('configuration.applicationColors.textClazz', event.value);
-    });
-
-    this.$('#cp-application-highlightedEntity').colorpicker().on('change', function (event) {
-      self.set('configuration.applicationColors.highlightedEntity', event.value);
-    });
-
-    this.$('#cp-application-communication').colorpicker().on('change', function (event) {
-      self.set('configuration.applicationColors.communication', event.value);
-    });
-
-    this.$('#cp-application-communicationArrow').colorpicker().on('change', function (event) {
-      self.set('configuration.applicationColors.communicationArrow', event.value);
-    });
-
-    this.$('#cp-application-background').colorpicker().on('change', function (event) {
-      self.set('configuration.applicationColors.background', event.value);
-    });
-  }
+    // Reset application color handlers
+    let applicationColors = this.get('configuration.applicationColors');
+    for (let property in applicationColors) {
+      $(`#cp-application-${property}`).colorpicker().off('change');
+    }
+  },
 
 });
