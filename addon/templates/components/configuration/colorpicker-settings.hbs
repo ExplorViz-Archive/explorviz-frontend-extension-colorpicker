@@ -19,7 +19,7 @@
     <div class="row">
         {{#each-in configuration.landscapeColors as |key color|}}
         <div class="col-md-6 col-lg-4 col-xl-3 mt-3">
-            <div>{{key}}</div>
+            <div>{{format-property key}}</div>
             <div id="{{concat "cp-landscape-" key}}" class="input-group">
                 {{input type="text" class="form-control input-lg" value=color }}
                 <span class="input-group-append">
@@ -35,7 +35,7 @@
     <div class="row">
         {{#each-in configuration.applicationColors as |key color|}}
         <div class="col-md-6 col-lg-4 col-xl-3 mt-3">
-            <div>{{key}}</div>
+            <div>{{format-property key}}</div>
             <div id="{{concat "cp-application-" key}}" class="input-group">
                 {{input type="text" class="form-control input-lg" value=color }}
                 <span class="input-group-append">
