@@ -34,18 +34,23 @@ export default Component.extend({
       this.$('#cp-landscape-node').colorpicker('setValue', this.get('configuration.landscapeColors.node'));
       this.$('#cp-landscape-application').colorpicker('setValue', this.get('configuration.landscapeColors.application'));
       this.$('#cp-landscape-communication').colorpicker('setValue', this.get('configuration.landscapeColors.communication'));
-      this.$('#cp-landscape-text-system').colorpicker('setValue', this.get('configuration.landscapeColors.textsystem'));
-      this.$('#cp-landscape-text-node').colorpicker('setValue', this.get('configuration.landscapeColors.textnode'));
-      this.$('#cp-landscape-text-app').colorpicker('setValue', this.get('configuration.landscapeColors.textapp'));
+      this.$('#cp-landscape-text-system').colorpicker('setValue', this.get('configuration.landscapeColors.textSystem'));
+      this.$('#cp-landscape-text-node').colorpicker('setValue', this.get('configuration.landscapeColors.textNode'));
+      this.$('#cp-landscape-text-app').colorpicker('setValue', this.get('configuration.landscapeColors.textApp'));
+      this.$('#cp-landscape-background').colorpicker('setValue', this.get('configuration.landscapeColors.brackgrounnd'));
 
       // update application colorpickers
       this.$('#cp-application-foundation').colorpicker('setValue', this.get('configuration.applicationColors.foundation'));
       this.$('#cp-application-componentOdd').colorpicker('setValue', this.get('configuration.applicationColors.componentOdd'));
       this.$('#cp-application-componentEven').colorpicker('setValue', this.get('configuration.applicationColors.componentEven'));
       this.$('#cp-application-clazz').colorpicker('setValue', this.get('configuration.applicationColors.clazz'));
+      this.$('#cp-application-foundation-text').colorpicker('setValue', this.get('configuration.applicationColors.textFoundation'));
+      this.$('#cp-application-component-text').colorpicker('setValue', this.get('configuration.applicationColors.textComponent'));
+      this.$('#cp-application-clazz-text').colorpicker('setValue', this.get('configuration.applicationColors.textClazz'));
       this.$('#cp-application-highlightedEntity').colorpicker('setValue', this.get('configuration.applicationColors.highlightedEntity'));
       this.$('#cp-application-communication').colorpicker('setValue', this.get('configuration.applicationColors.communication'));
       this.$('#cp-application-communicationArrow').colorpicker('setValue', this.get('configuration.applicationColors.communicationArrow'));
+      this.$('#cp-application-background').colorpicker('setValue', this.get('configuration.applicationColors.background'));
     },
 
   },
@@ -69,15 +74,20 @@ export default Component.extend({
     this.$('#cp-landscape-tesxt-system').colorpicker().off('change');
     this.$('#cp-landscape-text-node').colorpicker().off('change');
     this.$('#cp-landscape-text-app').colorpicker().off('change');
+    this.$('#cp-landscape-background').colorpicker().off('change');
 
     // application colorpickers
     this.$('#cp-application-foundation').colorpicker().off('change');
     this.$('#cp-application-componentOdd').colorpicker().off('change');
     this.$('#cp-application-componentEven').colorpicker().off('change');
     this.$('#cp-application-clazz').colorpicker().off('change');
+    this.$('#cp-application-foundation-text').colorpicker().off('change');
+    this.$('#cp-application-component-text').colorpicker().off('change');
+    this.$('#cp-application-clazz-text').colorpicker().off('change');
     this.$('#cp-application-highlightedEntity').colorpicker().off('change');
     this.$('#cp-application-communication').colorpicker().off('change');
     this.$('#cp-application-communicationArrow').colorpicker().off('change');
+    this.$('#cp-application-background').colorpicker().off('change');
   },
 
   // initializes the colorpicker elements and related handlers/listeners
@@ -129,22 +139,29 @@ export default Component.extend({
     this.$('#cp-landscape-text-system').colorpicker(
       {
         format: "rgb",
-        fallbackColor: this.get('configuration.landscapeColorsDefault.textsystem'),
-        color: self.get('configuration.landscapeColors.textsystem')
+        fallbackColor: this.get('configuration.landscapeColorsDefault.textSystem'),
+        color: self.get('configuration.landscapeColors.textSystem')
       }
     );
     this.$('#cp-landscape-text-node').colorpicker(
       {
         format: "rgb",
-        fallbackColor: this.get('configuration.landscapeColorsDefault.textnode'),
-        color: self.get('configuration.landscapeColors.textnode')
+        fallbackColor: this.get('configuration.landscapeColorsDefault.textNode'),
+        color: self.get('configuration.landscapeColors.textNode')
       }
     );
     this.$('#cp-landscape-text-app').colorpicker(
       {
         format: "rgb",
-        fallbackColor: this.get('configuration.landscapeColorsDefault.textapp'),
-        color: self.get('configuration.landscapeColors.textapp')
+        fallbackColor: this.get('configuration.landscapeColorsDefault.textApp'),
+        color: self.get('configuration.landscapeColors.textApp')
+      }
+    );
+    this.$('#cp-landscape-background').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.landscapeColorsDefault.background'),
+        color: self.get('configuration.landscapeColors.background')
       }
     );
 
@@ -177,6 +194,27 @@ export default Component.extend({
         color: self.get('configuration.applicationColors.clazz')
       }
     );
+    this.$('#cp-application-foundation-text').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.applicationColorsDefault.textFoundation'),
+        color: self.get('configuration.applicationColors.textFoundation')
+      }
+    );
+    this.$('#cp-application-component-text').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.applicationColorsDefault.textComponent'),
+        color: self.get('configuration.applicationColors.textComponent')
+      }
+    );
+    this.$('#cp-application-clazz-text').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.applicationColorsDefault.textClazz'),
+        color: self.get('configuration.applicationColors.textClazz')
+      }
+    );
     this.$('#cp-application-highlightedEntity').colorpicker(
       {
         format: "rgb",
@@ -196,6 +234,13 @@ export default Component.extend({
         format: "rgb",
         fallbackColor: this.get('configuration.applicationColorsDefault.communicationArrow'),
         color: self.get('configuration.applicationColors.communicationArrow')
+      }
+    );
+    this.$('#cp-application-background').colorpicker(
+      {
+        format: "rgb",
+        fallbackColor: this.get('configuration.applicationColorsDefault.background'),
+        color: self.get('configuration.applicationColors.background')
       }
     );
   },
@@ -226,18 +271,22 @@ export default Component.extend({
     });
 
     this.$('#cp-landscape-text-system').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.textchanged', true);
-      self.set('configuration.landscapeColors.textsystem', event.value);
+      self.set('configuration.landscapeColors.textChanged', true);
+      self.set('configuration.landscapeColors.textSystem', event.value);
     });
 
     this.$('#cp-landscape-text-node').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.textchanged', true);
-      self.set('configuration.landscapeColors.textnode', event.value);
+      self.set('configuration.landscapeColors.textChanged', true);
+      self.set('configuration.landscapeColors.textNode', event.value);
     });
 
     this.$('#cp-landscape-text-app').colorpicker().on('change', function (event) {
-      self.set('configuration.landscapeColors.textchanged', true);
-      self.set('configuration.landscapeColors.textapp', event.value);
+      self.set('configuration.landscapeColors.textChanged', true);
+      self.set('configuration.landscapeColors.textApp', event.value);
+    });
+
+    this.$('#cp-landscape-background').colorpicker().on('change', function (event) {
+      self.set('configuration.landscapeColors.background', event.value);
     });
 
     // application colorpickers
@@ -257,6 +306,18 @@ export default Component.extend({
       self.set('configuration.applicationColors.clazz', event.value);
     });
 
+    this.$('#cp-application-foundation-text').colorpicker().on('change', function (event) {
+      self.set('configuration.applicationColors.textFoundation', event.value);
+    });
+
+    this.$('#cp-application-component-text').colorpicker().on('change', function (event) {
+      self.set('configuration.applicationColors.textComponent', event.value);
+    });
+
+    this.$('#cp-application-clazz-text').colorpicker().on('change', function (event) {
+      self.set('configuration.applicationColors.textClazz', event.value);
+    });
+
     this.$('#cp-application-highlightedEntity').colorpicker().on('change', function (event) {
       self.set('configuration.applicationColors.highlightedEntity', event.value);
     });
@@ -269,6 +330,9 @@ export default Component.extend({
       self.set('configuration.applicationColors.communicationArrow', event.value);
     });
 
+    this.$('#cp-application-background').colorpicker().on('change', function (event) {
+      self.set('configuration.applicationColors.background', event.value);
+    });
   }
 
 });
