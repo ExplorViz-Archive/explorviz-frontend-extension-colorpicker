@@ -21,7 +21,7 @@
         <div class="col-md-6 col-lg-4 col-xl-3 mt-3">
             <div>{{format-property key}}</div>
             <div id="{{concat "cp-landscape-" key}}" class="input-group">
-                {{input type="text" class="form-control input-lg" value=color }}
+                {{input type="text" class="form-control input-lg" value=(mut (get this.configuration.landscapeColors key))}}
                 <span class="input-group-append">
                     <span class="input-group-text colorpicker-input-addon"><i></i></span>
                 </span>
@@ -37,7 +37,7 @@
         <div class="col-md-6 col-lg-4 col-xl-3 mt-3">
             <div>{{format-property key}}</div>
             <div id="{{concat "cp-application-" key}}" class="input-group">
-                {{input type="text" class="form-control input-lg" value=color }}
+                {{input type="text" class="form-control input-lg" value=(mut (get this.configuration.applicationColors key))}}
                 <span class="input-group-append">
                     <span class="input-group-text colorpicker-input-addon"><i></i></span>
                 </span>
