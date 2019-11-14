@@ -18,15 +18,17 @@ export default Component.extend({
     applyColorScheme(value) {
       if (value === "default") {
         this.get('configuration').resetColors();
+        this.updateColorPickerElements();
       }
       else if (value === "impaired") {
         this.applyVisuallyImpairedColors();
+        this.updateColorPickerElements();
       }
       else {
         // Passed color scheme was invalid
         return;
       }
-    },
+    }
   },
 
   // @Override
@@ -37,21 +39,19 @@ export default Component.extend({
 
   // Initializes the colorpicker elements and related handlers/listeners
   initColorpicker() {
-    const self = this;
-    this.initColorPickerElements(self);
-    this.initHandlers(self);
+    this.initColorPickerElements();
   },
 
   // Configures the colorpicker elements and defines format, color, and fallback color
-  initColorPickerElements(self) {
+  initColorPickerElements() {
     let landscapeColors = this.get('configuration.landscapeColors');
     // Initialize landscape colorpickers
     for (let property in landscapeColors) {
       $(`#cp-landscape-${property}`).colorpicker(
         {
           format: "rgb",
-          fallbackColor: self.get('configuration.landscapeColorsDefault.' + property),
-          color: self.get('configuration.landscapeColors.' + property)
+          fallbackColor: this.get('configuration.landscapeColorsDefault.' + property),
+          color: this.get('configuration.landscapeColors.' + property)
         }
       );
     }
@@ -62,29 +62,24 @@ export default Component.extend({
       $(`#cp-application-${property}`).colorpicker(
         {
           format: "rgb",
-          fallbackColor: self.get('configuration.applicationColorsDefault.' + property),
-          color: self.get('configuration.applicationColors.' + property)
+          fallbackColor: this.get('configuration.applicationColorsDefault.' + property),
+          color: this.get('configuration.applicationColors.' + property)
         }
       );
     }
   },
 
-  // Setups the handlers / listeners for the colorpickers
-  initHandlers(self) {
-    // Landscape color handlers
+  updateColorPickerElements() {
     let landscapeColors = this.get('configuration.landscapeColors');
+    // update landscape colorpickers' values
     for (let property in landscapeColors) {
-      $(`#cp-landscape-${property}`).colorpicker().on('change', function (event) {
-        self.set('configuration.landscapeColors.' + property, event.value);
-      });
+      $(`#cp-landscape-${property}`).colorpicker('setValue', this.get('configuration.landscapeColors.' + property));
     }
 
-    // Application color Handlers
     let applicationColors = this.get('configuration.applicationColors');
+    // Initialize application colorpickers' values
     for (let property in applicationColors) {
-      $(`#cp-application-${property}`).colorpicker().on('change', function (event) {
-        self.set('configuration.applicationColors.' + property, event.value);
-      });
+      $(`#cp-application-${property}`).colorpicker('setValue', this.get('configuration.applicationColors.' + property));
     }
   },
 
@@ -118,23 +113,6 @@ export default Component.extend({
       communicationArrow: "rgb(0, 0, 0)",
       background: "rgb(255, 255, 255)"
     });
-  },
-
-  // @Override
-  willDestroyElement() {
-    this._super(...arguments);
-
-    // Reset landscape color handlers
-    let landscapeColors = this.get('configuration.landscapeColors');
-    for (let property in landscapeColors) {
-      $(`#cp-landscape-${property}`).colorpicker().off('change');
-    }
-
-    // Reset application color handlers
-    let applicationColors = this.get('configuration.applicationColors');
-    for (let property in applicationColors) {
-      $(`#cp-application-${property}`).colorpicker().off('change');
-    }
-  },
+  }
 
 });
